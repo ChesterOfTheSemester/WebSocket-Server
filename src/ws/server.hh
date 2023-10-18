@@ -51,8 +51,6 @@ public:
                     std::string       data_str(data.begin(), data.end());
                     std::cout << "Received from client: " << data_str << std::endl;
 
-                    if (!data_str.compare("please_disconnect")) _disconnect(client);
-
                     // Return the message
                     emit(client, data_str);
 
