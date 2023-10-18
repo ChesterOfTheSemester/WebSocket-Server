@@ -16,12 +16,14 @@
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Crypt32.lib")
 
-std::vector<SOCKET> clients;
-std::mutex          clients_mtx;
+std::vector<SOCKET> ws_clients;
+std::mutex          ws_clients_mtx;
 
 class WSServer
 {
 public:
+    std::vector<SOCKET> *clients = &ws_clients;
+
     WSServer(int PORT)
     {
         _PORT = PORT;
@@ -72,10 +74,10 @@ private:
         }
 
         // Remove client socket from array
-        clients_mtx.lock();
-        auto it = std::find(clients.begin(), clients.end(), client);
-        if (it != clients.end()) clients.erase(it);
-        clients_mtx.unlock();
+        ws_clients_mtx.lock();
+        auto it = std::find(ws_clients.begin(), ws_clients.end(), client);
+        if (it != ws_clients.end()) ws_clients.erase(it);
+        ws_clients_mtx.unlock();
 
         // Close client socket
         closesocket(client);
@@ -130,9 +132,9 @@ private:
                 send(clientSocket, response.str().c_str(), response.str().length(), 0);
 
                 // Push new client socket to array
-                clients_mtx.lock();
-                clients.push_back(clientSocket);
-                clients_mtx.unlock();
+                ws_clients_mtx.lock();
+                ws_clients.push_back(clientSocket);
+                ws_clients_mtx.unlock();
 
                 // Create new thread and run client
                 std::thread client(threadClient, clientSocket);
