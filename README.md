@@ -1,4 +1,4 @@
-# Version 0.1
+### Version 0.1 (Work in progress)
 
 # WebSocket-Server
 A simple C++17 WebSocket server, able to handle multiple connections.
