@@ -45,6 +45,7 @@ public:
             for (const auto &clients : ws_input_buffer)
                 try {
                     // Print message
+                    if (!&clients) continue;
                     SOCKET client =   clients.first;
                     std::vector<char> data = clients.second;
                     std::string       data_str(data.begin(), data.end());
@@ -98,15 +99,11 @@ private:
         char buffer[1];
         int result = recv(client, buffer, sizeof(buffer), MSG_PEEK);
 
-        if (result == 0) {
-            std::cout << "Client disconnected" << std::endl;
-            return false;
-        } else if (result == -1) {
-            std::cerr << "Client disconnected due to error: " << errno << std::endl;
-            return false;
+        switch (result) {
+            case 0:  std::cout << "Client disconnected" << std::endl; return false;
+            case -1: std::cerr << "Client disconnected due to error: " << errno << std::endl; return false;
+            default: return true;
         }
-
-        return true;
     }
 
     static void threadClient(SOCKET client)

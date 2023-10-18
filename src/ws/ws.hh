@@ -9,11 +9,11 @@
 const std::string WS_MAGIC_STRING = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
 struct WebSocketFrame {
-    bool fin;
-    uint8_t opcode;
-    bool mask;
-    uint64_t payload_length;
-    uint32_t masking_key;
+    bool                 fin;
+    uint8_t              opcode;
+    bool                 mask;
+    uint64_t             payload_length;
+    uint32_t             masking_key;
     std::vector<uint8_t> payload_data;
 };
 
