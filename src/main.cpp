@@ -14,5 +14,6 @@ int main()
         std::cout << "Total connections: " << server.clients->size() << std::endl;
     }
 
+
     return 0;
 }

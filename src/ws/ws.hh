@@ -17,7 +17,7 @@ struct WebSocketFrame {
     std::vector<uint8_t> payload_data;
 };
 
-WebSocketFrame parseWSFrame(const std::vector<uint8_t>& data)
+WebSocketFrame parseWSFrame(const std::vector<uint8_t> &data)
 {
     WebSocketFrame frame;
     size_t index = 0;
@@ -72,7 +72,7 @@ std::string prepareWSAcceptKey(const std::string &key)
     return rtn;
 }
 
-std::vector<char> frameWSMessage(const std::string& message)
+std::vector<char> frameWSMessage(const std::string &message)
 {
     std::vector<char> frame;
     frame.push_back(0x81); // Final fragment, text frame
