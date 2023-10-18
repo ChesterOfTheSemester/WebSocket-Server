@@ -51,6 +51,8 @@ public:
                     std::string       data_str(data.begin(), data.end());
                     std::cout << "Received from client: " << data_str << std::endl;
 
+                    if (!data_str.compare("please_disconnect")) _disconnect(client);
+
                     // Return the message
                     emit(client, data_str);
 
@@ -91,8 +93,18 @@ public:
         ws_output_buffer_mtx.unlock();
     }
 
+    static void disconnect(SOCKET client)
+    {
+        _disconnect(client);
+    }
+
 private:
     int _PORT;
+
+    static void _disconnect(SOCKET client)
+    {
+        closesocket(client);
+    }
 
     static bool isConnected(int client)
     {
