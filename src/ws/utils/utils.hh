@@ -8,3 +8,5 @@ std::string trim(const std::string &s)
         ? s.substr(start, end - start + 1)
         : "";
 }
+
+#include "hz_timer.hh"

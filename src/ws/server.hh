@@ -10,7 +10,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-#include "utils.hh"
+#include "utils/utils.hh"
 #include "ws.hh"
 
 #pragma comment(lib, "Ws2_32.lib")
